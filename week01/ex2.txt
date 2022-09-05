@@ -1,0 +1,72 @@
+    1  ls
+    2  mv week1 week01
+    3  ls
+    4  cd week01
+    5  ls
+    6  cd ex1
+    7  cd Ex1
+    8  ls
+    9  rm test.tst 
+   10  rm test.txt
+   11  mv ex1.sh ..
+   12  ls
+   13  cd ..
+   14  ls
+   15  rmdir Ex1
+   16  ls
+   17  nano ex1.sh 
+   18  bash ex1.sh 
+   19  ls
+   20  nano ex1.sh
+   21  nano ex1.txt 
+   22  ls
+   23  rmdir Ex2
+   24  rmdir Ex3
+   25  rmdir Ex4
+   26  ls
+   27  nano ex1.txt 
+   28  nano ex1.sh
+   29  bash ex1.sh
+   30  mv ex1.sh ~
+   31  ls
+   32  cd ..
+   33  rm -rf week01/
+   34  bash ex1.sh 
+   35  ls
+   36  cd week01/
+   37  ls
+   38  nano ex1.txt 
+   39  cd ~
+   40  man history
+   41  history
+   42  nano ex2.sh
+   43  bash ex2.sh 
+   44  cd week01
+   45  nano ex2.txt 
+   46  cd ..
+   47  nano ex2.sh 
+   48  bash ex2.sh
+   49  cd week01
+   50  nano ex2.txt
+   51  cd ..
+   52  nano ex2.sh 
+   53  bash ex2.sh
+   54  cd week01/
+   55  nano ex2.txt 
+   56  cd ..
+   57  nano ex2.sh 
+   58  bash ex2.sh
+   59  cd week01/
+   60  nano ex2.txt
+   61  cd ..
+   62  ls
+   63  nano ex2.sh 
+   64  bash ex2.sh 
+   65  nano ex2.txt 
+   66  nano ex2.sh
+   67  bash ex2.sh 
+   68  ls
+   69  nano ex2.txt 
+   70  rm ex2.txt 
+   71  nano ex2.sh
+   72  history > week01/ex2.txt
