@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 
+int canConvert(long long toconvert, int s){
+	char mystr[256];
+	int len;
+	sprintf(mystr, "%lld", toconvert);  
+   	len = sprintf(mystr, "%lld", toconvert);
+   	for (int i = 0; i < len; i++){
+   		if (mystr[i]-'0'>= s){
+  			printf("Cannot convert\n");
+   			return 0;
+   		}
+   	}
+   	return 1;
+}
+
 void convert(long long int x, int s, int t)
 {
 	if(s == 10){
@@ -41,6 +55,7 @@ void convert(long long int x, int s, int t)
     	    base10number /= t;
     	    index++;
     	}
+	result[index] = '\0';
     	for(int i = strlen(result) - 1; i >= 0; i--) {
     	    printf("%c", result[i]);
     	}
@@ -55,6 +70,5 @@ int main()
     int s;
 
     scanf("%lld %d %d", &x, &s, &t);
-
-    convert(x, s, t);
+    if( canConvert(x,s)){convert(x, s, t);}
 }
