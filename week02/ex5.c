@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 int tribonacci(int n);
 
 int tribonacci(int n) {
@@ -8,7 +8,7 @@ int tribonacci(int n) {
     long long number2 = 1;
     long long number3 = 1;
     long long current = 0;
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i <= n; i++) {
         if(i == 0) {
             current = number1;
         }
@@ -19,11 +19,11 @@ int tribonacci(int n) {
             current = number3;
         }
         else {
-            current = number3 + number2 + number1;
+          current = number3 + number2 + number1;
+	  number1 = number2;
+	  number2 = number3;
+	 number3 = current;
         }
-        number1 = number2;
-        number2 = number3;
-        number3 = current;
     }
 
     return current;
