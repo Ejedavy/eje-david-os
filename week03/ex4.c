@@ -83,36 +83,36 @@ int main() {
 	}
 
 
-        int add_int_initial_value = 0;
-        int* add_int_initial = &add_int_initial_value;
+        int addition_int_init_v = 0;
+        int* addition_integer_init = &addition_int_init_v;
 
-        double add_double_initial_value = 0.0;
-        double* add_double_initial = &add_double_initial_value;
+        double addition_double_init_v = 0.0;
+        double* addition_double_init = &addition_double_init_v;
 
-        int mul_int_initial_value = 1;
-        int* mul_int_initial = &mul_int_initial_value;
+        int multiplication_integer_init_v = 1;
+        int* multiplication_integer_init = &multiplication_integer_init_v;
 
-        double mul_double_initial_value = 1.0;
-        double* mul_double_initial = &mul_double_initial_value;
+        double multiplication_double_init_v = 1.0;
+        double* multiplication_double_init = &multiplication_double_init_v;
 
         // Addition
-        int* result1a = aggregate(ints, sizeof (int), n, add_int_initial, &addInt);
-        printf("%d\n", *result1a);
+        int* result_of_addition_int = aggregate(ints, sizeof (int), n, addition_integer_init, &addInt);
+        printf("%d\n", *result_of_addition_int);
 
-        double* result2a = aggregate(doubles, sizeof (double), n, add_double_initial, &addDouble);
-        printf("%f\n", *result2a);
+        double* result_of_addition_double = aggregate(doubles, sizeof (double), n, addition_double_init, &addDouble);
+        printf("%f\n", *result_of_addition_double);
 
         // Multiplication
-        int* result1m = aggregate(ints, sizeof (int), n, mul_int_initial, &mulInt);
-        printf("%d\n", *result1m);
-        double* result2m = aggregate(doubles, sizeof (double), n, mul_double_initial, &mulDouble);
+        int* result_of_multiplication_int = aggregate(ints, sizeof (int), n, multiplication_integer_init, &mulInt);
+        printf("%d\n", *result_of_multiplication_int);
+        double* result2m = aggregate(doubles, sizeof (double), n, multiplication_double_init, &mulDouble);
         printf("%f\n", *result2m);
 
         // Mean
-        int* result1mean = aggregate(ints, sizeof (int), n, add_int_initial, &meanInt);
-        printf("%d\n", *result1mean);
-        double* result2mean = aggregate(doubles, sizeof (double), n, add_double_initial, &meanDouble);
-        printf("%f\n", *result2mean);
+        int* result_of_mean_int = aggregate(ints, sizeof (int), n, addition_integer_init, &meanInt);
+        printf("%d\n", *result_of_mean_int);
+        double* result_of_mean_double = aggregate(doubles, sizeof (double), n, addition_double_init, &meanDouble);
+        printf("%f\n", *result_of_mean_double);
 
         // Free pointers
 
