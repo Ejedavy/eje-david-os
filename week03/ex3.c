@@ -1,170 +1,126 @@
-#include<stdio.h>
-#include<stdlib.h>
-//<WRITE YOUR CODE HERE>
+#include <stdio.h>
+#include <stdlib.h>
 
+void* aggregate(void* base, size_t size, int n, void* initial_value,
+                void* (*opr)(const void*, const void*));
 
-struct Directory;
-struct File;
-
-struct File{
-    int id;
-    
-    //<WRITE YOUR CODE HERE>;
-    
-    struct Directory * directory;// The parent directory
-};
-
-struct Directory{
-    int nf;
-    int nd;
-    
-    //<WRITE YOUR CODE HERE>;
-};
-
-typedef struct Directory Directory;
-typedef struct File File;
-
-
-// Operations on files
-void add_to_file(File *file, const char * content);
-void append_to_file(File *file, const char * content);
-void pwd_file(File * file);
-
-
-// Operations on directories
-void add_file(File* file, Directory *dir);
-void add_dir(Directory *dir1, Directory *dir2); // given to you
-
-// Helper functions
-void show_dir(Directory *dir);
-void show_file(File *file);
-void show_file_detailed(File *file);
-
-int main(){
-    
-    char content1[] = "int printf(const char * format, ...);";
-    char content2[] = "int main(){printf('Hello World');}";
-    char content3[] = "//This is a comment in C language";
-    char content4[] = "Bourne Again Shell!";
-    
-    
-    
-    Directory home, bin, root;
-    
-    //<WRITE YOUR CODE HERE>
-    
-    // Example: the path of the folder home is /home
-    
-    // Add subdirectories
-    add_dir(&home, &root);
-    add_dir(&bin, &root);
-    
-    File bash, ex31, ex32;
-    
-    //<WRITE YOUR CODE HERE>
-    
-    //add_file();
-    //add_file();
-    //add_file();
-
-    //add_to_file();
-    //add_to_file();
-    //add_to_file();
-    
-    
-    //append_to_file();
-
-    show_dir(&root);
-    show_file_detailed(&bash);
-    show_file_detailed(&ex31);
-    show_file_detailed(&ex32);
-
-   pwd_file(&bash);
-   pwd_file(&ex31);
-   pwd_file(&ex32);
-   
-   return EXIT_SUCCESS;
+void* addInt(const void* a, const void* b) {
+        int sum = *((int*) a) + *((int*) b);
+        int* ret = &sum;
+        return (void*) ret;
 }
 
-// Helper functions
-
-// Displays the content of the Directory dir
-void show_dir(Directory *dir){
-    printf("\nDIRECTORY\n");
-    printf(" path: %s\n", dir->path);
-    printf(" files:\n");
-    printf("    [ ");
-    for (int i = 0; i < dir->nf; i++){
-        show_file(dir->files[i]);
-    }
-    printf("]\n");
-    printf(" directories:\n");
-    printf("    { ");
-    
-    for (int i = 0; i < dir->nd; i++){
-        show_dir(dir->directories[i]);
-    }
-    printf("}\n");
+void* addDouble(const void* a, const void* b) {
+        double sum = *((double*) a) + *((double*) b);
+        double* ret = &sum;
+        return (void*) ret;
 }
 
-// Prints the name of the File file
-void show_file(File *file){
-    printf("%s ", file->name);
+void* mulInt(const void* a, const void* b) {
+        int product = *((int*) a) * *((int*) b);
+        int* ret = &product;
+        return (void*) ret;
 }
 
-// Shows details of the File file
-void show_file_detailed(File *file){
-    printf("\nFILE\n");
-    printf(" id: %d\n", file->id);
-    printf(" name: %s\n", file->name);
-    printf(" size: %lu\n", file->size);
-    printf(" data:\n");
-    printf("    [ %s ]\n", file->data);
+void* mulDouble(const void* a, const void* b) {
+        double product = *((double*) a) * *((double*) b);
+        double* ret = &product;
+        return (void*) ret;
 }
 
-
-
-// Implementation: Operations on files
-
-// Adds the content to the File file
-void add_to_file(File *file, const char * content) {
-
-	//<WRITE YOUR CODE HERE>
-	
-}
-
-// Appends the content to the File file
-void append_to_file(File *file, const char * content) {
-	
-	//<WRITE YOUR CODE HERE>
+void* mean() {
 
 }
 
-// Prints the path of the File file
-void pwd_file(File * file) {
-
-	//<WRITE YOUR CODE HERE>
-	// Example: the path for bash file is /bin/bash
-
+void* aggregate(void* base, size_t size, int n, void* initial_value,
+                void* (*opr)(const void*, const void*)) {
+        void* ans;
+        if (size == sizeof(int)) { // base is a pointer to an integer
+                if (opr == mean) {
+                        ans = aggregate(base, size, n, initial_value, &addInt);
+                        int ret = *((int*) ans) / n;
+                        ans = &ret;
+                } else {
+                        int initial = *((int*) initial_value);
+                        ans = &initial;
+                        for (int i = 0; i < n; i++) {
+                                ans = opr(ans, ((int*) base + i));
+                        }
+                }
+        }  else {
+                if (opr == mean) {
+                        ans = aggregate(base, size, n, initial_value, &addDouble);
+                        double ret = *((double*) ans) / n;
+                        ans = &ret;
+                } else {
+                        double initial = *((double*) initial_value);
+                        ans = &initial;
+                        for (int i = 0; i < n; i++) {
+                                ans = opr(ans, ((double*) base + i));
+                        }
+                }
+        }
+        return ans;
 }
 
 
-// Implementation: Operations on directories
+int main() {
+        int n = 5;
 
-// Adds the File file to the Directory dir
-void add_file(File* file, Directory *dir) {
+        int* ints = malloc(sizeof(int) * n);
+        for (int i = 0; i < n; i++)
+                *(ints + i) = i + 1; // 1, 2, 3, 4, 5, ...
 
-	//<WRITE YOUR CODE HERE>
-	
+        double* doubles = malloc(sizeof(double) * n);
+        for (int i = 0; i < n; i++)
+                *(doubles + i) = i + 2.0; // 2.0, 3.0, 4.0, 5.0, 6.0, ...
+
+        int add_int_initial_value = 0;
+        int* add_int_initial = &add_int_initial_value;
+
+        double add_double_initial_value = 0.0;
+        double* add_double_initial = &add_double_initial_value;
+
+        int mul_int_initial_value = 1;
+        int* mul_int_initial = &mul_int_initial_value;
+
+        double mul_double_initial_value = 1.0;
+        double* mul_double_initial = &mul_double_initial_value;
+
+        // Addition
+
+        int* result1a = aggregate(ints, sizeof (int), n,
+                                  add_int_initial, &addInt);
+        printf("%d\n", *result1a);
+
+        double* result2a = aggregate(doubles, sizeof (double), n,
+                                     add_double_initial, &addDouble);
+        printf("%f\n", *result2a);
+
+        // Multiplication
+
+        int* result1m = aggregate(ints, sizeof (int), n,
+                                  mul_int_initial, &mulInt);
+        printf("%d\n", *result1m);
+
+        double* result2m = aggregate(doubles, sizeof (double), n,
+                                     mul_double_initial, &mulDouble);
+        printf("%f\n", *result2m);
+
+        // Mean
+
+        int* result1mean = aggregate(ints, sizeof (int), n,
+                                     add_int_initial, &mean);
+        printf("%d\n", *result1mean);
+
+        double* result2mean = aggregate(doubles, sizeof (double), n,
+                                        add_double_initial, &mean);
+        printf("%f\n", *result2mean);
+
+        // Free pointers
+
+        free(ints);
+        free(doubles);
+
+        return EXIT_SUCCESS;
 }
-
-// Given to you
-// Adds the subdirectory dir1 to the directory dir2
-void add_dir(Directory *dir1, Directory *dir2){
-	if (dir1 && dir2){
-		dir2->directories[dir2->nd] = dir1;
-		dir2->nd++;
-	}
-}
-
-
