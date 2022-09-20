@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_PATH 2048
-#define MAX_DATA 1024
-#define MAX_LENGTH 63
-#define MAX_FILES 256
-#define MAX_SUB 8
+#define PATH 2048
+#define DATA 1024
+#define LENGTH 63
+#define FILES 256
+#define SUB 8
 
 struct Directory;
 struct File;
@@ -16,26 +16,24 @@ typedef struct File File;
 
 struct File {
         int id;
-        char name[MAX_LENGTH];
+        char name[LENGTH];
         int size;
-        char data[MAX_DATA];
+        char data[DATA];
 
         struct Directory* directory; // The parent directory
 };
 
 struct Directory {
-        File* files[MAX_FILES];
-        Directory* directories[MAX_SUB];
+        File* files[FILES];
+        Directory* directories[SUB];
         int nf;
         int nd;
-        char path[MAX_PATH];
+        char path[PATH];
 };
 
 // Operations on files
-void add_to_file(File* file,
-                 const char* content);
-void append_to_file(File* file,
-                    const char* content);
+void add_to_file(File* file, const char* content);
+void append_to_file(File* file, const char* content);
 void pwd_file(File* file);
 
 // Operations on directories
@@ -83,7 +81,7 @@ int main() {
 
 	ex32.id = 3;
 	strcpy(ex32.name, "ex3_2.c");
-	strcpy(ex32.data, content2);
+	strcpy(ex32.data, content3);
 	ex32.size = 1;
 
 	// Add files to directories
@@ -92,8 +90,8 @@ int main() {
         add_file(&ex32, &home);
 
 	// Add/Append content to files 
-        add_to_file(&bash, content3);
-        append_to_file(&ex31, content4);
+        add_to_file(&bash, content4);
+        append_to_file(&ex31, content2);
 
         show_dir(&root);
         show_file_detailed(&bash);
@@ -146,13 +144,11 @@ void show_file_detailed(File* file) {
 // Implementation: Operations on files
 
 // Adds the content to the File file
-void add_to_file(struct File* file,
-                 const char* content) {
+void add_to_file(struct File* file, const char* content) {
         strcpy(file->data, content);
 }
 
-void append_to_file(struct File* file,
-                    const char* content) {
+void append_to_file(struct File* file, const char* content) {
         strcat(file->data, content);
 }
 
