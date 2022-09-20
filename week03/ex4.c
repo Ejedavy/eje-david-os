@@ -1,42 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void* aggregate(void* base, size_t size, int n, void* initial_value,
-                void* (*opr)(const void*, const void*));
+void* aggregate(void* base, size_t size, int n, void* initial_value, void* (*opr)(const void*, const void*));
 
 void* addInt(const void* a, const void* b) {
+	void* output;
         int sum = *((int*) a) + *((int*) b);
-        int* ret = &sum;
-        return (void*) ret;
+        output = &sum;
+        return output;
 }
 
 void* addDouble(const void* a, const void* b) {
+	void* output;
         double sum = *((double*) a) + *((double*) b);
-        double* ret = &sum;
-        return (void*) ret;
+        output = &sum;
+        return output;
 }
 
 void* mulInt(const void* a, const void* b) {
+	void* output;
         int product = *((int*) a) * *((int*) b);
-        int* ret = &product;
-        return (void*) ret;
+   	output = &product;
+	return output;
 }
 
 void* mulDouble(const void* a, const void* b) {
+	void* output;
         double product = *((double*) a) * *((double*) b);
-        double* ret = &product;
-        return (void*) ret;
+        output = &product;
+        return output;
 }
 
-void* mean() {
+void* meanInt(const void *a, const void* b) {
 
 }
 
-void* aggregate(void* base, size_t size, int n, void* initial_value,
-                void* (*opr)(const void*, const void*)) {
+void* meanDouble(const void* a, const void* b) {
+
+}
+
+void* aggregate(void* base, size_t size, int n, void* initial_value, void* (*opr)(const void*, const void*)) {
         void* ans;
         if (size == sizeof(int)) { // base is a pointer to an integer
-                if (opr == mean) {
+                if (opr == meanInt) {
                         ans = aggregate(base, size, n, initial_value, &addInt);
                         int ret = *((int*) ans) / n;
                         ans = &ret;
@@ -48,7 +54,7 @@ void* aggregate(void* base, size_t size, int n, void* initial_value,
                         }
                 }
         }  else {
-                if (opr == mean) {
+                if (opr == meanDouble) {
                         ans = aggregate(base, size, n, initial_value, &addDouble);
                         double ret = *((double*) ans) / n;
                         ans = &ret;
@@ -65,15 +71,17 @@ void* aggregate(void* base, size_t size, int n, void* initial_value,
 
 
 int main() {
-        int n = 5;
-
+        const int n = 5;
         int* ints = malloc(sizeof(int) * n);
-        for (int i = 0; i < n; i++)
-                *(ints + i) = i + 1; // 1, 2, 3, 4, 5, ...
-
+        for (int i = 0; i < n; i++) {
+                *(ints + i) = 2 * (i + 1); 
+        }
+        
         double* doubles = malloc(sizeof(double) * n);
-        for (int i = 0; i < n; i++)
-                *(doubles + i) = i + 2.0; // 2.0, 3.0, 4.0, 5.0, 6.0, ...
+        for (int i = 0; i < n; i++) {
+                *(doubles + i) = 3.5 * (i + 1);
+	}
+
 
         int add_int_initial_value = 0;
         int* add_int_initial = &add_int_initial_value;
@@ -88,33 +96,22 @@ int main() {
         double* mul_double_initial = &mul_double_initial_value;
 
         // Addition
-
-        int* result1a = aggregate(ints, sizeof (int), n,
-                                  add_int_initial, &addInt);
+        int* result1a = aggregate(ints, sizeof (int), n, add_int_initial, &addInt);
         printf("%d\n", *result1a);
 
-        double* result2a = aggregate(doubles, sizeof (double), n,
-                                     add_double_initial, &addDouble);
+        double* result2a = aggregate(doubles, sizeof (double), n, add_double_initial, &addDouble);
         printf("%f\n", *result2a);
 
         // Multiplication
-
-        int* result1m = aggregate(ints, sizeof (int), n,
-                                  mul_int_initial, &mulInt);
+        int* result1m = aggregate(ints, sizeof (int), n, mul_int_initial, &mulInt);
         printf("%d\n", *result1m);
-
-        double* result2m = aggregate(doubles, sizeof (double), n,
-                                     mul_double_initial, &mulDouble);
+        double* result2m = aggregate(doubles, sizeof (double), n, mul_double_initial, &mulDouble);
         printf("%f\n", *result2m);
 
         // Mean
-
-        int* result1mean = aggregate(ints, sizeof (int), n,
-                                     add_int_initial, &mean);
+        int* result1mean = aggregate(ints, sizeof (int), n, add_int_initial, &meanInt);
         printf("%d\n", *result1mean);
-
-        double* result2mean = aggregate(doubles, sizeof (double), n,
-                                        add_double_initial, &mean);
+        double* result2mean = aggregate(doubles, sizeof (double), n, add_double_initial, &meanDouble);
         printf("%f\n", *result2mean);
 
         // Free pointers
