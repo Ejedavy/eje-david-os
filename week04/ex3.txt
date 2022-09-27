@@ -1,0 +1,2 @@
+In the program, When we enter the loop, All current processes create a child process and they all sleep for 5 seconds. In the next iteration same thing happened and finally the number of processes after n iterations 2 ^n processes are created.
+
