@@ -4,20 +4,40 @@
 #include <sys/wait.h>
 #include <string.h>
 
+int main(void)
+{
 
-int main(void) {
+    char command[1000];
+    pid_t parent_process = getpid();
+    pid_t fg_command;
+    while (fgets(command, 1000, stdin))
+    {
+        if (strcmp(command, "exit\n") == 0)
+            break;
+        if (getpid() == parent_process)
+        {
+            if (command[strlen(command) - 2] != '&')
+            {
+                fg_command = fork();
+            }
+            else
+            {
+                fork();
+            }
+            if (getpid() != parent_process)
+            {
+                int err = system(command);
+                if(err){
+                    printf("Error executing command");
+                }
+                return EXIT_SUCCESS;
+            }
+        }
+        if (command[strlen(command) - 2] != '&' && getpid() == parent_process)
+        {
+            waitpid(fg_command, NULL, 0);
+        }
+    }
 
-  pid_t pid = fork();
-  if(pid == 0){
-    char command[50];
-    for (;;) {
-    scanf("%s", command);
-    system(command);
-  }
-  }
-  wait(NULL);
-
-  return EXIT_SUCCESS;
-  
+    return EXIT_SUCCESS;
 }
-
