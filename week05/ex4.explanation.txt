@@ -1,0 +1,7 @@
+The task was to count the number of primes in the range (0,n]. Also using m threads. But the difference here is that there is a function that is called to get the next number to check and this is called by every thread. 
+
+This function manipulated a critical region which is a global variable that holds which number should be checked next, Hence there is a need to lock the global lock upon calling the get_number_to_check function.
+
+The same can be said of the increment primes function which is called to increase the number of prime s which is also a critical region.
+
+The execution time of this method is similar to that of the third exercise.

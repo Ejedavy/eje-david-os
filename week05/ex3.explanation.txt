@@ -1,0 +1,5 @@
+Exercise 3 is about splitting the tasks of counting the prime numbers in the range (0,n] between m threads.
+
+The task for each thread is to computer the numbers of primes in a region of length n/m apart from the last thread which could be more is n % m != 0.
+
+From ex3.txt, it is clear that increasing the number of threads made the computation to run faster and this is because all the threads are running when the process is in a running state
