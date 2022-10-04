@@ -7,6 +7,7 @@
 
 int main(int argc, char *argv[])
 {
+    printf("This is the publisher\n");
     int n = atoi(argv[1]);
     mkfifo("/tmp/ex1", 0777);
 
