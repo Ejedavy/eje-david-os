@@ -7,14 +7,10 @@
 
 int main(void)
 {
-    mkfifo("tmp/ex1", 0666);
+    mkfifo("/tmp/ex1", 0777);
 
-    int file_descriptor = open("tmp/ex1", O_RDONLY);
-    if (file_descriptor != 0)
-    {
-        printf("Error opening the named pipe\n");
-        return 1;
-    }
+    int file_descriptor = open("/tmp/ex1", O_RDONLY);
+  
 
     char received_message[1024];
     while (read(file_descriptor, received_message, sizeof(received_message)))

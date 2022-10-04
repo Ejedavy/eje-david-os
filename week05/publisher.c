@@ -8,14 +8,10 @@
 int main(int argc, char *argv[])
 {
     int n = atoi(argv[1]);
-    mkfifo("tmp/ex1", 0666);
+    mkfifo("/tmp/ex1", 0777);
 
-    int file_descriptor = open("tmp/ex1", O_WRONLY);
-    if (file_descriptor != 0)
-    {
-        printf("Error opening the named pipe\n");
-        return 1;
-    }
+    int file_descriptor = open("/tmp/ex1", O_WRONLY);
+ 
 
     char to_publish[1024];
     while (fgets(to_publish, 1024, stdin))
@@ -23,11 +19,8 @@ int main(int argc, char *argv[])
 
         for (int i = 0; i < n; i++)
         {
-            if (write(file_descriptor, to_publish, sizeof(to_publish)) != 0)
-            {
-                printf("Error writing to the named pipe\n");
-                return 1;
-            }
+            write(file_descriptor, to_publish, sizeof(to_publish));
+         
         }
         sleep(1);
     }
