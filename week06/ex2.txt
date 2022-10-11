@@ -1,0 +1,2 @@
+
+In this task we implemented the short job next scheduling. This algorithm works by running the available processes that have the least burst time. And there is an improvement in the average turnaround time compared to the first come first serve algorithm.

@@ -1,0 +1,2 @@
+
+In this task we implemented the round robin algorithm, which is a preemptive algorithm that allocates equal time (quanta) to each process, and then the next available process is selected. The process is finished when the time left to be ran is 0.
