@@ -1,0 +1,6 @@
+Physical address:
+	Refers to addresses to real memory units. These units are physically in the RAM of the computer. The RAM(main memory) contains the processes that are currently ran by the computer
+	It usually contains only the applications currently executing, since memory is not enough to accommodate all programs. Programs not currently running are kept in the virtual memory and loaded to the main memory upon execution.
+	
+Virtual address:
+	This are logical addresses used by the CPU to address sections of a process. The mapping of logical addresses to physical address is done by the MMU and it happens at runtime. Usually the virtual memory is way larger than the physical memory.

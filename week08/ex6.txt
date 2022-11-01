@@ -1,0 +1,9 @@
+16-bit virtual addresses
+8 KB pages
+
+Using a 16 bit addressing, we can store up to 2^16 bytes of memory. This is the size of the virtual memory. It is given that the size of each page is 8KB ( 2^13 bytes). 
+
+The number of pages is 2 ^ (16 -13) which is 8.
+
+The number of pages is equal to the number of entries in the page table.
+So the answer is 8
