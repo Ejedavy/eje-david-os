@@ -1,0 +1,12 @@
+
+In order to get the highest hit ratio using the aging algorithm, if we are using n bits for the age and n + 1 page frames then, we can construct 
+
+1, 2, 3, 4, 5.... n + 1, 1, 2, 3 ...
+
+The first n + 1 will be misses and then from then they will all be hits.
+
+To make the sequence have a bad hit/miss ratio we can construct 
+
+1,2,3,4.... n + 2, 1,2 .. n + 2. 
+
+There will be no hit here since the next time 1, 2 .. appears, they have all been flushed from the page table
