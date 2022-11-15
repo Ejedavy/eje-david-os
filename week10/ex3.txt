@@ -1,0 +1,6 @@
+-rw-rw-rw-   1 davideje  staff     6B Nov 15 21:02 _ex3.txt
+-rwxrw-rwx   1 davideje  staff     6B Nov 15 21:02 _ex3.txt
+-rwxrwxrwx   1 davideje  staff     6B Nov 15 21:02 _ex3.txt
+1) rw- rw- --- (The user and group has read and write)
+2) rwx rwx r-x (The user and group has all the permissions, read and execute for other)
+3) rwx rwx rwx (All categories have All permissions)
