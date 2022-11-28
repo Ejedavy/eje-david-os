@@ -1,6 +1,0 @@
-The available shortcuts are: 
-P + E: "I passed the Exam!"
-C + A + P: "Get some cappuccino!"
-E + C: "Elegant Code!"
-ePI passed the Exam!
-Elegant code!
